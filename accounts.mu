@@ -57,10 +57,24 @@
 @@ &note`#`appsec                        - Seconds when approved.
 @@ &note`#`text                          - Note text.
 @@ &priority`#                           - 1 to 5, default for all is #1
+@@
+@@------------------------System Management Stuff-------------------------------
+@@ Do not remove. Edit as needed.
+&matrix`name #43=ACCOUNT
+&matrix`desc #43=Player Account Management System.
+&matrix`active #43=1
+&matrix`credit #43=Mr. Black ($g33kcub) @ Here, Seamus@MSB, Matrix@Due Rewards/WORA
+&matrix`locked #43=1
+&matrix`obj #43=#43:1567186680 #44:1567186688
+&matrix`cmd #43=#43:1567186680
+@@
+@@-------------------------Help Files-------------------------------------------
+@@ &help`account# Formatting
 @@------------------------------------------------------------------------------
 
 @@ global functions
 &functionlist #43=account actid
+
 &actid #34=[setq(aid,[u(#43/get`id,%0)])][if(isdbref(%q<aid>),%q<aid>,[alert(#)])]
 &actid`min #34=1
 &actid`max #34=1
@@ -70,12 +84,13 @@
 
 
 @@ internal functions
-&get`id #43=[u(get`id`[strmatch(%0,$*)],%0)]
+&get`id #43=[if([u(matrix`active)],[u(get`id`[strmatch(%0,$*)],%0)],[u(get`id`inactive,%0)])]
 &get`id`1 #43=[setq(db,[iter(children(#44),[if([gte([words([wgrepi(##,HANDLE,[after(%0,$)])])],1)],##)])])][setq(fdb,[trim([setunion(%q<db>,%q<db>)))][name(%q<fdb>)]
 &get`id`0 #43=[setq(pid,[if(isdbref(%0),%0,[pfind(%0)])])][setq(db,iter(children(#44),[if([gtm(lzone(##),%q<pid>)],##)]))][setq(fdb,trim(setunion(%q<db>,%q<db>)))][name(%q<fdb>)]
+&get`id`inactive #43=[pfind(%0)]
 
 &showhandle #43=[ansi(010,$)][get([u(get`actdb,%0)]/handle)]
 &is`act #43=[gtm([parent(%0)],#44)]
 &is`onact #43=[gtm([lzone([u(get`actdb,%0)])],%1)]
 &is`alt #43=[cand([u(is`onact,%0)],[gtm([get([u(get`actdb,%0)]/alts)],%0)])]
-&get`actdb #43=[]
+&get`actdb #43=[setq(adb,[u(git`id,%0)])]%q<fdb>

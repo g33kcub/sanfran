@@ -23,12 +23,17 @@
 @@ myvalid(TYPE,item)                    - Returns 1 if the item is valid.
 @@ alert(type,item..N)                   - Returns custom alert errors.
 @@ itemize(list,delimit,conjun,punc,sep) - Itemizes a list. itemize(test|test,|,&,(comma),sep)
+@@ newfile(system)                       - Generates an unique number for a file entry. (news/+help/+shelp/etc.)
 @@------------------------------------------------------------------------------
 @startup #34=@dolist [u(makelist)]={@function/preserve/privilege ##=#34/##;@function/min ##=[default(#34/##`min,0)];@function/max ##=[default(#34/##`max,-1)]};
 
 &makelist #34=[setq(list,[iter([lzone(#45)],[get(##/functionlist)],%B,%B)])][setunion(%q<list>,%q<list>)]
 
-&functionlist #34=safepassword caps cnum numth gtm ispowered width su hasrole roles line firstof strfirstof gameconfig myvalid wgrepi alert itemize
+&functionlist #34=safepassword caps cnum numth gtm ispowered width su hasrole roles line firstof strfirstof gameconfig myvalid wgrepi alert newfile itemize
+
+&newfile #34=[setr(new,[inc([default(#34/newfile`%0,0)])])][set(#34,newfile`%0:%q<new>,1)]
+&newfile`min #34=1
+&newfile`max #34=1
 
 &itemize #34=elist(%0,%2,%1,%4,%3)
 &itemize`min #34=3
@@ -38,6 +43,7 @@
 &alert`min #34=1
 &amsg`# #34=#-1
 &amsg`a1 #34=#-A1 Incorrect Name or Handle formatting.
+&amsg`S1 #34=#-S1 Invalid Switch for SYSTEM%(%) Function.
 
 &wgrepi #34=[filter(wgrepi`fil,lattr(%0/%1,,,,,1),%B,%B,%0,%2)]
 &wgrepi`fil #34=[strmatch([get(%1/%0)],%2)]
@@ -48,11 +54,11 @@
 &myvalid`min #34=2
 &myvalid`max #34=2
 
-&hasrole #34=[u(gtm,[get(%0/SYS`ROLES)],[ucstr(%1)])]
+&hasrole #34=[u(gtm,[u(roles,%0)],[ucstr(%1)])]
 &hasrole`min #34=2
 &hasrole`max #34=2
 
-&roles #34=[sort([get(%0/SYS`ROLES)])]
+&roles #34=[setq(list,[wgrepi(#47,ROLE`*`LIST,[objid(%0)])])][sort([iter(%q<list>,[extract(##,2,1,`)])])]
 &roles`min #34=1
 &roles`max #34=1
 
