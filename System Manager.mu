@@ -2,14 +2,19 @@
 @@ System Zone: #45
 
 @@------------------------------------------------------------------------------
-@@  @sys [<page>]                           - Shows a list of all systems.
-@@  @sys/activate <system name>             - Activates a System.
-@@  @sys/deactivate <system name>           - Deactivates a System.
-@@  @sys/install <system name>=<dbref>      - Installs a system.
-@@  @sys/uninstall <system name>            - Uninstalls a system and deactivates it. It also sets the command object inactive.
-@@  @sys/lock <system name>                 - Locks a system as either active or deactivated. It is not able to be uninstalled.
-@@  @sys/unlock <system name>               - Unlocks a system, making it changeable.
-@@  @sys/info <system name>                 - View system information for the system.
+@@  @sysmng [<page>]                        - Shows a list of all systems.
+@@  @sysmng/activate <system name>          - Activates a System.
+@@  @sysmng/deactivate <system name>        - Deactivates a System.
+@@  @sysmng/install <system name>=<dbref>   - Installs a system.
+@@  @sysmng/uninstall <system name>         - Uninstalls a system and deactivates it. It also sets the command object inactive.
+@@  @sysmng/lock <system name>              - Locks a system as either active or deactivated. It is not able to be uninstalled.
+@@  @sysmng/unlock <system name>            - Unlocks a system, making it changeable.
+@@  @sysmng/info <system name>              - View system information for the system.
+@@  @sysmng/ignore <system name>            - Marks a system as ignored.
+@@  @sysmng/addobj <system name>=<dbref>    - Adds an object to the system.
+@@  @sysmng/remobj <system name>=<dbref>    - Removes an object from the system.
+@@  @sysmng/addcmd <system name>=<dbref>    - Adds an object as a command object.
+@@  @sysmng/remcmd <system name>=<dbref>    - Removes an object as a command object.
 @@
 @@------------------------Functions---------------------------------------------
 @@  system(switch,sysname)                  - Triggers and checks based on switch.
@@ -51,7 +56,7 @@
 
 @lock/use #48=canuse/1
 
-&switches`immortal #48=ACTIVATE|DEACTIVATE|INSTALL|UNINSTALL|LOCK|UNLOCK|INFO
+&switches`immortal #48=ACTIVATE|DEACTIVATE|INSTALL|UNINSTALL|LOCK|UNLOCK|INFO|IGNORE|ADDCMD|ADDOBJ|REMCMD|REMOBJ
 
 &fil_issystem #48=[not([get(%0/matrix`ignore)])]
 
@@ -64,4 +69,8 @@
 &get`page`count #48=[extract(%0,[extract(u(get`page`list),%1,1)],15)]
 &get`page`list #48=[iter([lnum(0,40)],[inc(mul(##,15))])]
 
-&run`info #48=th
+&run`info #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@pemit %#=[line(System Manager,2header,,[name(%q<dlist>)])]%R[ljc([ansi([gameconfig(line_text)],System Name)]:,15)]%B[get(%q<dlist>/matrix`name)]%R[ljc([ansi(gameconfig(line_text),System Desc)]:,15)]%B[wrap([get(%q<dlist>/matrix`desc)],[sub([width(%#)],16)],left,,,16)]%R[ljc([ansi(gameconfig(line_text),System Credits)]:,15)]%B[get(%q<dlist>/matrix`credit)]%R[ljc([ansi(gameconfig(line_text),System Flags)]:,15)]%B[itemize([if(get(%q<dlist>/matrix`active),Active)] [if(get(%q<dlist>/matrix`locked),Locked)] [if(get(%q<dlist>/matrix`ignored),Ignored)],%B,&)]%R[line(Objects Associated With System)][step(run`info`step,sortby(sort`dname,[get(%q<dlist>/matrix`obj)]),2,%B,)];@pemit %#=[line()]
+
+&run`info`step #48=%R[printf($-39s  $-39s,[u(run`info`fmt,%0)],[u(run`info`fmt,%1)])]
+&sort`dname #48=[comp(name(%0),name(%1))]
+&run`info`fmt #48=[ljc([before(%0,:)],6,.)]%B[center([if([gtm([get(%q<dlist>/matrix`cmd)],%0)],[ansi(010,$)])],3,.)]%B[ljc([name(%0)],28,.)]
