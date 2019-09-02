@@ -24,6 +24,11 @@
 @@ alert(type,item..N)                   - Returns custom alert errors.
 @@ itemize(list,delimit,conjun,punc,sep) - Itemizes a list. itemize(test|test,|,&,(comma),sep)
 @@ newfile(system)                       - Generates an unique number for a file entry. (news/+help/+shelp/etc.)
+@@
+@@------------------------System Management Stuff-------------------------------
+@@ Do not remove. Edit as needed.
+&matrix`ignore #34=1
+&matrix`name #34=SYSTEM
 @@------------------------------------------------------------------------------
 @startup #34=@dolist [u(makelist)]={@function/preserve/privilege ##=#34/##;@function/min ##=[default(#34/##`min,0)];@function/max ##=[default(#34/##`max,-1)]};
 
@@ -122,3 +127,6 @@
 &line`right #34=[printf($&[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s$5:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)],)]
 &line`cathead #34=[printf($&^%q<fillwidth>s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
 &line`linehead #34=[printf($&^%q<fillwidth>:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
+&line`lefthead #34=[printf($5:[ansi(%q<fillcolor>,%q<fill>)]:s$&-[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s,,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])][ansi(%q<fillstar>,:)]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillstar>,:)][ansi(%q<fillcolor>,[chr(93)])],)])]
+&line`righthead #34=[printf($&[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s$5:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])][ansi(%q<fillstar>,:)]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillstar>,:)][ansi(%q<fillcolor>,[chr(93)])],)],)]
+&line`2header #34=[line(%0,lefthead,%#,50)][line(%1,righthead,%#,[sub([width(%#)],50)])]

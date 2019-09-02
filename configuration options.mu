@@ -10,4 +10,6 @@
 &config`line_text #42=015
 &config`line_text`type #42=COLOR
 &config`line_accent #42=220
-&config`line_accent #42=COLOR
+&config`line_accent`type #42=COLOR
+&config`columns #42=015
+&config`columns`type #42=COLOR
