@@ -15,6 +15,8 @@
 @@  @sysmng/remobj <system name>=<dbref>    - Removes an object from the system.
 @@  @sysmng/addcmd <system name>=<dbref>    - Adds an object as a command object.
 @@  @sysmng/remcmd <system name>=<dbref>    - Removes an object as a command object.
+@@  @sysmng/desc <system name>=<desc>       - Describes the system.
+@@  @sysmng/credit <system name>=<credit>   - Assign credits if needed. 
 @@
 @@------------------------Functions---------------------------------------------
 @@  system(switch,sysname)                  - Triggers and checks based on switch.
@@ -58,7 +60,7 @@
 
 &switches`immortal #48=ACTIVATE|DEACTIVATE|INSTALL|UNINSTALL|LOCK|UNLOCK|INFO|IGNORE|ADDCMD|ADDOBJ|REMCMD|REMOBJ
 
-
+&run`install #48=th [setq(ins,iter([lzone(#45)],[get(##/matrix`name)],%B,|))];@stop [gtm(%q<ins>,%0,|)]={@error %#=[U(matrix`name)]/%#/'[ucstr(%0)]' is already an installed system.};@check [isdbref(%1)]={@error %#=[u(matrix`name)]/%#/Not a valid DBREF.};&matrix`name %1=[ucstr(%0)];&matrix`obj %1=[objid(%1)]
 
 &run`deactivate #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/%#/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@stop [not([isdbref(%q<dlist>)])]={@error %#=[u(matrix`name)]/%#/That is not a valid System.};@stop [get(%q<dlist>/matrix`locked)]={@error %#=[u(matrix`name)]/%#/'[name(%q<dlist>)]' is locked. No changes will not be allowed.};@stop [not([u(matrix`active)])]={@error %#=[u(matrix`name)]/%#/'[name(%q<dlist>)]' is not currently listed as active.};@dolist [get(%q<dlist>/matrix`cmd)]={@set ##=!COMMANDS};&matrix`active %q<dlist>=0;@msg %#=[u(matrix`name)]/%#/Set. [name(%q<dlist>)] has been deactivated.
 
