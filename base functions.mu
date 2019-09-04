@@ -34,7 +34,11 @@
 
 &makelist #34=[setq(list,[iter([lzone(#45)],[get(##/functionlist)],%B,%B)])][setunion(%q<list>,%q<list>)]
 
-&functionlist #34=safepassword caps cnum numth gtm ispowered width su hasrole roles line firstof strfirstof gameconfig myvalid wgrepi alert newfile itemize
+&functionlist #34=safepassword caps cnum numth gtm ispowered width su hasrole roles line firstof strfirstof gameconfig myvalid wgrepi alert newfile itemize gamename
+
+&gamename #34=[mudname()]: [gameconfig(season_tag)]
+&gamename`min #34=0
+&gamename`max #34=0
 
 &newfile #34=[setr(new,[inc([default(#34/newfile`%0,0)])])][set(#34,newfile`%0:%q<new>,1)]
 &newfile`min #34=1

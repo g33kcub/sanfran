@@ -18,13 +18,6 @@
 @@  @sysmng/desc <system name>=<desc>       - Describes the system.
 @@  @sysmng/credit <system name>=<credit>   - Assign credits if needed.
 @@
-@@------------------------Functions---------------------------------------------
-@@  system(switch,sysname)                  - Triggers and checks based on switch.
-@@
-&functionlist #48=system
-
-&system #34=[if(hasattr(#48/system`%0),[u(#48/system`%0,%1)],[alert(S1)])]
-@@
 @@------------------------System Management Stuff-------------------------------
 @@ Do not remove. Edit as needed.
 &matrix`name #48=SYSMNG
@@ -58,10 +51,12 @@
 
 @lock/use #48=canuse/1
 
-@@ ADDOBJ|REMOBJ
+
 &switches`immortal #48=ACTIVATE|DEACTIVATE|INSTALL|UNINSTALL|LOCK|UNLOCK|INFO|IGNORE|ADDCMD|ADDOBJ|REMCMD|REMOBJ
 
-&run`remobj #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])][setq(obj,[objid(%1)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/%#/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@stop [not([isdbref(%q<dlist>)])]={@error %#=[u(matrix`name)]/%#/That is not a valid System.};@check [isdbref(%1)]={@error %#=[u(matrix`name)]/%#/That is not a valid DBREF.};@check [gtm([get(%q<obj>/matrix`cmd)],%q<obj>)]={@error %#=[u(matrix`name)]/%#/That object is not listed as a command object with the '[ucstr(%0)]' system.};&matrix`cmd %q<dlist>=[setdiff([get(%q<dlist>/matrix`cmd)],%q<obj>)];@set %q<obj>=!commands;@zone/del %q<obj>=#45;@zone/del %q<obj>=#50;@msg %#=[u(matrix`name)]/%#/Removed. '[name(%q<obj>)]' has been removed from the '[ucstr(%0)]' system as a command & help object.
+&run`addobj #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])][setq(obj,[objid(%1)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/%#/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@stop [not([isdbref(%q<dlist>)])]={@error %#=[u(matrix`name)]/%#/That is not a valid System.};@check [isdbref(%1)]={@error %#=[u(matrix`name)]/%#/That is not a valid DBREF.};@check [not([gtm([get(%q<obj>/matrix`obj)],%q<obj>)])]={@error %#=[u(matrix`name)]/%#/That object is already associated with '[ucstr(%0)]'.};&matrix`obj %q<dlist>=[setunion([get(%q<dlist>/matrix`obj)],%q<obj>)];@msg %#=[u(matrix`name)]/%#/Added. '[name(%q<obj>)]' has been added to the '[ucstr(%0)]' system.
+
+&run`remobj #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])][setq(obj,[objid(%1)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/%#/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@stop [not([isdbref(%q<dlist>)])]={@error %#=[u(matrix`name)]/%#/That is not a valid System.};@check [isdbref(%1)]={@error %#=[u(matrix`name)]/%#/That is not a valid DBREF.};@check [gtm([get(%q<obj>/matrix`obj)],%q<obj>)]={@error %#=[u(matrix`name)]/%#/That object is not listed as an object with the '[ucstr(%0)]' system.};&matrix`cmd %q<dlist>=[setdiff([get(%q<dlist>/matrix`cmd)],%q<obj>)];&matrix`obj %q<dlist>=[setdiff([get(%q<dlist>/matrix`obj)],%q<obj>)];@set %q<obj>=!commands;@zone/del %q<obj>=#45;@zone/del %q<obj>=#50;@msg %#=[u(matrix`name)]/%#/Removed. '[name(%q<obj>)]' has been removed from the '[ucstr(%0)]' system.
 
 &run`addcmd #48=th [setq(list,[iter([lzone(#45)],[get(##/matrix`name)]~##,%B,|)])][setq(grab,[graball(%q<list>,[caps(%0)]~*,|,|)])][setq(dlist,[iter(%q<grab>,[after(##,~)],|,%B)])][setq(obj,[objid(%1)])];@stop [gte(words(%q<dlist>),2)]={@error %#=[u(matrix`name)]/%#/'[ansi(gameconfig(line_accent),%0)]' matches multiple items please be more specific!};@stop [not([isdbref(%q<dlist>)])]={@error %#=[u(matrix`name)]/%#/That is not a valid System.};@check [isdbref(%1)]={@error %#=[u(matrix`name)]/%#/That is not a valid DBREF.};@check [gtm([get(%q<obj>/matrix`obj)],%q<obj>)]={@error %#=[u(matrix`name)]/%#/That object is not associated with '[ucstr(%0)]' please add the object first.};&matrix`cmd %q<dlist>=[setunion([get(%q<dlist>/matrix`cmd)],%q<obj>)];@set %q<obj>=commands;@zone/add %q<obj>=#45;@zone/add %q<obj>=#50;@msg %#=[u(matrix`name)]/%#/Added. '[name(%q<obj>)]' has been added to the '[ucstr(%0)]' system as a command & help object.
 

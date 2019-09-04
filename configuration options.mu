@@ -13,3 +13,7 @@
 &config`line_accent`type #42=COLOR
 &config`columns #42=015
 &config`columns`type #42=COLOR
+&config`season_tag #42=Bringing the Light
+&config`season_tag`type #42=WORD
+&config`season_num #42=1
+&config`season_num`type #42=INT
