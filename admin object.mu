@@ -12,7 +12,7 @@
 &build`select #40=alias @select @switch/first
 &build`tree_character #40=tree_character `
 &build`sys #40=atrperms SYS:6:6
-&build`wod #40=atrperms WOD:6:6
+&build`BESM #40=atrperms BESM:6:6
 &build`org #40=atrperms ORG:6:6
 &build`setq #40=penn_setq yes
 &build`matrix #40=atrperms MATRIX:6:6
