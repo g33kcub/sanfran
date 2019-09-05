@@ -57,6 +57,7 @@
 @@ &note`#`appsec                        - Seconds when approved.
 @@ &note`#`text                          - Note text.
 @@ &priority`#                           - 1 to 5, default for all is #1
+@@ &read`<system>                        - Storing the read file entries.
 @@
 @@------------------------System Management Stuff-------------------------------
 @@ Do not remove. Edit as needed.
