@@ -5,18 +5,10 @@
 @@  @sysmng [<page>]                        - Shows a list of all systems.
 @@  @sysmng/activate <system name>          - Activates a System.
 @@  @sysmng/deactivate <system name>        - Deactivates a System.
-@@  @sysmng/install <system name>=<dbref>   - Installs a system.
-@@  @sysmng/uninstall <system name>         - Uninstalls a system and deactivates it. It also sets the command object inactive.
 @@  @sysmng/lock <system name>              - Locks a system as either active or deactivated. It is not able to be uninstalled.
 @@  @sysmng/unlock <system name>            - Unlocks a system, making it changeable.
 @@  @sysmng/info <system name>              - View system information for the system.
 @@  @sysmng/ignore <system name>            - Marks a system as ignored.
-@@  @sysmng/addobj <system name>=<dbref>    - Adds an object to the system.
-@@  @sysmng/remobj <system name>=<dbref>    - Removes an object from the system.
-@@  @sysmng/addcmd <system name>=<dbref>    - Adds an object as a command object.
-@@  @sysmng/remcmd <system name>=<dbref>    - Removes an object as a command object.
-@@  @sysmng/desc <system name>=<desc>       - Describes the system.
-@@  @sysmng/credit <system name>=<credit>   - Assign credits if needed.
 @@
 @@------------------------System Management Stuff-------------------------------
 @@ Do not remove. Edit as needed.
