@@ -123,8 +123,11 @@ $wgGroupPermissions['*']['edit'] = false;
 ## names, ie 'vector', 'monobook':
 require_once( "$IP/skins/Tweeki/Tweeki.php" );
 $wgDefaultSkin = "tweeki";
-# End of automatically generated settings.
-# Add more configuration options below.
+
+# Enabled extensions. Most of the extensions are enabled by adding
+# wfLoadExtensions('ExtensionName');
+# to LocalSettings.php. Check specific extension documentation for more details.
+# The following extensions were automatically enabled:
 wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'Cite' );
 wfLoadExtension( 'CiteThisPage' );
@@ -146,3 +149,5 @@ wfLoadExtension( 'SpamBlacklist' );
 wfLoadExtension( 'SyntaxHighlight_GeSHi' );
 wfLoadExtension( 'TitleBlacklist' );
 wfLoadExtension( 'WikiEditor' );
+# End of automatically generated settings.
+# Add more configuration options below.
