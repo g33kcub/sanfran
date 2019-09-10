@@ -54,7 +54,7 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "mysql";
 $wgDBserver = "localhost";
-$wgDBname = "wiki";
+$wgDBname = "sanfran";
 $wgDBuser = "mushman";
 $wgDBpassword = "piggy1988!";
 
@@ -95,14 +95,14 @@ $wgShellLocale = "C.UTF-8";
 # Site language code, should be one of the list in ./languages/data/Names.php
 $wgLanguageCode = "en";
 
-$wgSecretKey = "0c117167d878b7e45b6f52573bad74bb66adcd4a8ef0fe4873f73647dac56291";
+$wgSecretKey = "365ac235b05699d065dd5dd2eb01f890b4fb3e5802ac00ca2005d70a4e0dfd37";
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = "e7070d1eab6af903";
+$wgUpgradeKey = "2edff5067b8e876b";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
@@ -158,3 +158,4 @@ wfLoadExtension( 'WikiEditor' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
+
