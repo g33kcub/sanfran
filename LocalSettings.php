@@ -121,8 +121,8 @@ $wgGroupPermissions['*']['edit'] = false;
 
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':
-$wgDefaultSkin = "vector";
-
+require_once( "$IP/skins/Tweeki/Tweeki.php" );
+$wgDefaultSkin = "tweeki";
 # End of automatically generated settings.
 # Add more configuration options below.
 wfLoadExtension( 'CategoryTree' );
