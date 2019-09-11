@@ -36,9 +36,9 @@
 &config`line_accent`category #30=COSMETIC
 &config`line_accent`type #30=COLOR
 
-&config`line_char #30=:
+&config`line_char #30=58
 &config`line_char`category #30=COSMETIC
-&config`line_char`type #30=WORD
+&config`line_char`type #30=CHAR
 
 &config`bracket_right #30=93
 &config`bracket_right`category #30=COSMETIC
@@ -67,3 +67,14 @@
 &startup`makelist #29=[setq(list,[iter([filter(fil`hasfn,[children(#29)])],[get(##/startup`functions)],%B,%B)])][setunion(%q<list>,%q<list>)]
 
 &fil`hasfn #29=[default(%0/matrix`hasfn,0)]
+
+&validate`char #29=th [setq(value,chr(%0))][if(strmatch(%q<value>,#-1*),0,1)]
+&validate`word #29=1
+&validate`bool #29=[gtm(1 0,%0)]
+&validate`int #29=[isint(%0)]
+&validate`num #29=[isnum(%0)]
+&validate`dbref #29=[isdbref(%0)]
+&validate`list #29=1
+&validate`timezone #29=[valid(timezone,%0)]
+&validate`color #29=[valid(ansicodes,%0)]
+&validate`channel #29=[valid(channel,%0)]
