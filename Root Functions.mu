@@ -26,7 +26,23 @@
 @@ newfile(system)                       - Generates an unique number for a file entry. (news/+help/+shelp/etc.)
 @@
 @parent #31=#29
-&startup`functions #31=safepassword caps cnum numth gtm ispowered width su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename
+&startup`functions #31=staffbit isstaff safepassword caps cnum numth gtm ispowered su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename sdesc hideidle statustag mplayers
+
+&mplayers #31=[setq(raw,lcon(%0))][setq(players,[iter(%q<raw>,if(and(hasflag(##,Connected),hastype(##,player)),##))])][setq(seen,[iter(%q<players>,[if([isstaff(%1)],##,[if([hasflag(##,dark)],,##)])])])][setunion(%q<seen>,%q<seen>)]
+
+&statustag #31=[u(statustag`[strfirstof(%1,0)],%0)]
+&statustag`0 #31=[switch(1,[hasflag(%0,Dark)],[ansi([gameconfig(tag_dark)],DRK)],[hidden(%0)],[ansi([gameconfig(tag_hide)],HDE)],[isstaff(%0)],[ansi([gameconfig(tag_staff)],STF)],[haspower(%0,Guest)],[ansi([gameconfig(tag_guest)],GST)],[hasrole(%0,Helper)],[ansi([gameconfig(tag_helper)],HLP)],[not([isapproved(%0)])],[ansi([gameconfig(tag_new)],NEW)],[isafk(%0)],[ansi([gameconfig(tag_afk)],AFK)])]
+&statustag`1 #31=[switch(1,[hasflag(%0,Dark)],[ansi([gameconfig(tag_dark)],DRK)],[hidden(%0)],[ansi([gameconfig(tag_hide)],HDE)],[isstaff(%0)],[ansi([gameconfig(tag_staff)],STF)],[haspower(%0,Guest)],[ansi([gameconfig(tag_guest)],GST)],[hasrole(%0,Helper)],[ansi([gameconfig(tag_helper)],HLP)],[not([isapproved(%0)])],[ansi([gameconfig(tag_new)],NEW)],[isafk(%0)],[ansi([gameconfig(tag_afk)],AFK)],[isic(%0)],[ansi([gameconfig(tag_IC)],IC)],[ansi(gameconfig(tag_ooc),OOC)])]
+
+&isstaff #31=[u(ispowered,%0)]
+
+&staffbit #31=Coming Soon.
+
+&hideidle #31=switch(objeval(%#,idle(%0)),-1,ansi(hx,Off),ansi(if(u(ishidden,%0),hx,u(ryg,round(mul(fdiv(bound(idle(%0),0,3600),3600),100),0))),u(smalltime,idle(%0),3)))
+&RYG #29=<[if(gt(%0,50),255,round(mul(255,fdiv(mul(%0,2),100)),0))] [if(gte(%0,50),sub(mul(255,2),round(mul(255,fdiv(mul(%0,2),100)),0)),255)] 0>
+&smalltime #29=etime(%0,3)
+
+&sdesc #31=[default(%0/short-desc,Use '&short-desc me=' to set.)]
 
 &gamename #31=[mudname()]: [gameconfig(season_tag)]
 
@@ -48,9 +64,7 @@
 
 &roles #31=[setq(list,[wgrepi(#30,ROLE`*`LIST,[objid(%0)])])][sort([iter(%q<list>,[extract(##,2,1,`)])])]
 
-&width #31=[default(%0/SYS`WIDTH,[gameconfig(width)])]
-
-&ispowered #31=[gte([bittype(%0)],2)]
+&ispowered #31=[orlflags(%0,Wizard Royalty Judge)]
 
 &gtm #31=[gte([match(%0,%1,%2)],1)]
 
@@ -74,16 +88,17 @@
 &gameconfig #31=[get(#30/Config`%0)]
 
 
-&line`prep #31=[setq(t1,firstof(%0,%!))][setq(fill,[u(gameconfig,LINE_FILL)])][setq(fillcolor,[u(gameconfig,LINE_COLOR)])][setq(filltext,[u(gameconfig,LINE_TEXT)])][setq(fillstar,[u(gameconfig,LINE_ACCENT)])][setq(fillwidth,[ifelse(isnum(%1),%1,[width(%#)])])]
+&line`prep #31=[setq(t1,firstof(%0,%!))][setq(fill,[gameconfig(line_fill)])][setq(lbr,[gameconfig(bracket_left)])][setq(rbr,[gameconfig(bracket_right)])][setq(char,[gameconfig(line_char)])][setq(color,[gameconfig(line_color)])][setq(text,[gameconfig(line_text)])][setq(accent,[gameconfig(line_accent)])][setq(width,[u(width,%0)])]
 
-&line #31=[u(line`prep,%2,%3)][u(line`[strfirstof(%1,center)],%0,%3,%4)]
 
-&line`header #31=[printf($&^%q<fillwidth>:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])][ansi(%q<fillstar>,:)]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillstar>,:)][ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`center #31=[printf($&^%q<fillwidth>:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`left #31=[printf($5:[ansi(%q<fillcolor>,%q<fill>)]:s$&-[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s,,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`right #31=[printf($&[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s$5:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)],)]
-&line`cathead #31=[printf($&^%q<fillwidth>s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`linehead #31=[printf($&^%q<fillwidth>:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`lefthead #31=[printf($5:[ansi(%q<fillcolor>,%q<fill>)]:s$&-[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s,,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])][ansi(%q<fillstar>,:)]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillstar>,:)][ansi(%q<fillcolor>,[chr(93)])],)])]
-&line`righthead #31=[printf($&[sub(%q<fillwidth>,5)]:[ansi(%q<fillcolor>,%q<fill>)]:s$5:[ansi(%q<fillcolor>,%q<fill>)]:s,[if(gte(words(%0),1),[ansi(%q<fillcolor>,[chr(91)])][ansi(%q<fillstar>,:)]%B[ansi(%q<filltext>,%0)]%B[ansi(%q<fillstar>,:)][ansi(%q<fillcolor>,[chr(93)])],)],)]
-&line`2header #31=[line(%0,lefthead,%#,50)][line(%1,righthead,%#,[sub([width(%#)],50)])]
+&line #31=[u(line`prep,%#)][u(line`[strfirstof(%0,center)],%1,%2,%3,%4)]
+
+&line`header #31=[center([ansi(%q<color>,[chr(%q<lbr>)])][ansi(%q<accent>,[chr(%q<char>)])]%B[ansi(%q<text>,%0)]%B[ansi(%q<accent>,[chr(%q<char>)])][ansi(%q<color>,[chr(%q<rbr>)])],%q<width>,[ansi(%q<color>,[chr(%q<fill>)])])]
+
+&line`center #31=[center([if(gte(words(%0),1),[ansi(%q<color>,[chr(%q<lbr>)])]%B[ansi(%q<text>,%0)]%B[ansi(%q<color>,[chr(%q<rbr>)])])],%q<width>,[ansi(%q<color>,[chr(%q<fill>)])])]
+
+&line`left #31=[ljust([repeat([ansi(%q<color>,[chr(%q<fill>)])],5)][ansi(%q<color>,[chr(%q<lbr>)])]%B[ansi(%q<text>,%0)]%B[ansi(%q<color>,[chr(%q<rbr>)])],%q<width>,[ansi(%q<color>,[chr(%q<fill>)])])]
+
+&line`right #31=[rjust([ansi(%q<color>,[chr(%q<lbr>)])]%B[ansi(%q<text>,%0)]%B[ansi(%q<color>,[chr(%q<rbr>)])][repeat([ansi(%q<color>,[chr(%q<fill>)])],5)],%q<width>,[ansi(%q<color>,[chr(%q<fill>)])])]
+
+&line`2col #31=[setq(width,[div(%q<width>,2)])][u(line`center,%0)][u(line`center,%1)]

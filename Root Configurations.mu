@@ -1,6 +1,20 @@
 
 
 
+&config`tag_guest #30=+magenta
+&config`tag_ic #30=+lightslateblue
+&config`tag_ooc #30=+white
+&config`tag_new #30=+mediumspringgreen
+&config`tag_afk #30=+red
+&config`tag_staff #30=+gold
+&config`tag_helper #30=+limegreen
+&config`tag_dark #30=+grey48
+&config`tag_hide #30=+dimgrey
+@dolist guest ic ooc new afk hide dark staff helper=&config`tag_##`category #30=COSMETIC;&config`tag_##`type #30=COLOR
+
+&config`columns #30=+white
+&config`columns`category #30=COSTMETIC
+&config`columns`type #30=COLOR
 &CONFIG`BRACKET_LEFT #30=91
 &CONFIG`BRACKET_LEFT`CATEGORY #30=COSMETIC
 &CONFIG`BRACKET_LEFT`TYPE #30=CHAR

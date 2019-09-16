@@ -3,8 +3,8 @@
 @@ OBJID: #29:1568211773
 &matrix`name #29=ROOT
 &matrix`desc #29=The core system settings and files.
-&matrix`obj #29=#29:1568211773 #30:1568212686 #31:1568212922
-&matrix`sys #29=#29:1568211773
+&matrix`obj #29=#29:1568658319 #30:1568658319 #31:1568658319 #32:1568660814 #35:1568660815 #33:1568660815 #34:1568660815
+&matrix`sys #29=#29:1568658319
 &matrix`cmd #29=
 &matrix`credit #29=The Hope @ San Fransokyo MUSH, Volund @ VolundMUSH Suite @ Github
 &matrix`hasfn #29=0
@@ -17,12 +17,12 @@
 @@ #31
 &matrix`hasfn #31=1
 @@----------------------------Configuration Options-----------------------------
-@dolist #29 #30 #31={@set ##=inherit safe no_command}
+@dolist #29 #30 #31={@set ##=wizard safe no_command}
 @dolist #30 #31={@parent ##=#29}
 
-&config`line_fill #30=-
+&config`line_fill #30=45
 &config`line_fill`category #30=COSMETIC
-&config`line_fill`type #30=WORD
+&config`line_fill`type #30=CHAR
 
 &config`line_color #30=+indianred3
 &config`line_color`category #30=COSMETIC
@@ -57,9 +57,9 @@
 &height #29=[height(%0,23)]
 @@------------------------------------------------------------------------------
 @@ Default Globals
-&global`root #30=#29:1568211773
-&global`data #30=#30:1568212686
-&global`functions #30=#31:1568212922
+&global`root #30=#29:1568658319
+&global`data #30=#30:1568658319
+&global`functions #30=#31:1568658319
 
 @@ Global Startup For Functions
 @startup #29=@dolist/inline [u(startup`makelist)]={@function %i0=[u(global,functions)],%i0};
@@ -122,7 +122,7 @@
 &MSGHEAD #29=[u(build`head,%0)]
 &MSGROOM #29=[u(build`head,%0)]
 
-&build`head #29=[ansi([gameconfig(LINE_COLOR)],[gameconfig(LINE_FILL)][chr(91)])][ansi([gameconfig(line_accent)],[gameconfig(line_char_left)])]%B[ansi([gameconfig(LINE_TEXT)],[ucstr(%0)])]%B[ansi([gameconfig(line_accent)],[gameconfig(line_char_right)])][ansi([gameconfig(LINE_COLOR)],[chr(93)][gameconfig(LINE_FILL)])]
+&build`head #29=[ansi([gameconfig(LINE_COLOR)],[gameconfig(LINE_FILL)][chr([gameconfig(bracket_left)])])][ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])]%B[ansi([gameconfig(LINE_TEXT)],[ucstr(%0)])]%B[ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])][ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(bracket_right)])][gameconfig(LINE_FILL)])]
 
 &get`pages #29=[setq(cnt,words(%0))][setq(div,[fdiv(%q<cnt>,%1)])][if(gte([after(%q<div>,.)],1),inc(before(%q<div>,.)),%q<div>)]
 &get`page`count #29=[extract(%0,[extract(u(get`page`list,%2,%3),%1,1)],15)]
