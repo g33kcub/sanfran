@@ -26,8 +26,11 @@
 @@ newfile(system)                       - Generates an unique number for a file entry. (news/+help/+shelp/etc.)
 @@
 @parent #31=#29
-&startup`functions #31=staffbit isstaff safepassword caps cnum numth gtm ispowered su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename sdesc hideidle statustag mplayers
+&startup`functions #31=staffbit isstaff safepassword caps cnum numth gtm ispowered su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename sdesc hideidle statustag mplayers mthings mexits
 
+
+&mexits #31=[setq(raw,lexits(%0))][setq(players,[iter(%q<raw>,if(hastype(##,exit),##))])][setq(seen,[iter(%q<players>,[if([isstaff(%1)],##,[if([hasflag(##,dark)],,##)])])])][setunion(%q<seen>,%q<seen>)]
+&mthings #31=[setq(raw,lcon(%0))][setq(players,[iter(%q<raw>,if(hastype(##,thing),##))])][setq(seen,[iter(%q<players>,[if([isstaff(%1)],##,[if([hasflag(##,dark)],,##)])])])][setunion(%q<seen>,%q<seen>)]
 &mplayers #31=[setq(raw,lcon(%0))][setq(players,[iter(%q<raw>,if(and(hasflag(##,Connected),hastype(##,player)),##))])][setq(seen,[iter(%q<players>,[if([isstaff(%1)],##,[if([hasflag(##,dark)],,##)])])])][setunion(%q<seen>,%q<seen>)]
 
 &statustag #31=[u(statustag`[strfirstof(%1,0)],%0)]
