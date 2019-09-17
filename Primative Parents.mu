@@ -34,7 +34,7 @@
 &exits`build`default #32=%B[ansi([gameconfig(columns)],Buildings)]: [itemize([iter([sortby(sort`name,[mexits(%!,%#,Build)])],[u(exits`fmt,##)],%B,|)],|,&)]%R
 &exits`path`default #32=%B[ansi([gameconfig(columns)],Paths)]: [itemize([iter([sortby(sort`name,[mexits(%!,%#,Path)])],[u(exits`fmt,##)],%B,|)],|,&)]%R
 
-&exits`fmt #32=[ansi([gameconfig(exit_name)],[name(%0)])]%B[chr([gameconfig(bracket_left)])][ansi([gameconfig(exit_alias)],[ucstr([alias(%0)])])][chr([gameconfig(bracket_right)])]
+&exits`fmt #32=[ansi([gameconfig(exit_name)],[name(%0)])]%B[chr([gameconfig(bracket_left)])][ansi([gameconfig(exit_alias)],[ucstr([alias(%0)])])][chr([gameconfig(bracket_right)])][if(hasflag(%0,Dark),%B[ansi(+dimgrey,<DARK>)]
 
 &ODROP #35=heads over from [fullname(home(me))].
 &OSUCCESS #35=heads over to [fullname(loc(me))].

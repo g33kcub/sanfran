@@ -48,7 +48,19 @@
 
 &config`season_tag #30=Bringing the Light
 &config`season_tag`type #30=WORD
+&config`season_tag`category #30=COSMETIC
 &config`season_num #30=1
 &config`season_num`type #30=INT
+&config`season_num`category #30=COSMETIC
 &config`alert_channel #30=Alerts
 &config`alert_Channel`type #30=LIST
+&config`alert_channel`category #30=SYSTEM
+&config`roll_channel #30=Rolls
+&config`roll_channel`type #30=LIST
+&config`roll_channel`category #30=SYSTEM
+&config`guest_channel #30=Guests
+&config`guest_channel`type #30=LIST
+&config`guest_channel`category #30=SYSTEM
+&config`newbie_channel #30=Newbies
+&config`newbie_channel`type #30=LIST
+&config`newbie_channel`category #30=SYSTEM
