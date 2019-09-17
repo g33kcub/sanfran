@@ -12,8 +12,14 @@
 &config`tag_hide #30=+dimgrey
 @dolist guest ic ooc new afk hide dark staff helper=&config`tag_##`category #30=COSMETIC;&config`tag_##`type #30=COLOR
 
+&config`exit_name #30=n
+&config`exit_name`category #30=COSMETIC
+&config`exit_name`type #30=COLOR
+&config`exit_alias #30=+white
+&config`exit_alias`category #30=COSMETIC
+&config`exit_alias`type #30=COLOR
 &config`columns #30=+white
-&config`columns`category #30=COSTMETIC
+&config`columns`category #30=COSMETIC
 &config`columns`type #30=COLOR
 &CONFIG`BRACKET_LEFT #30=91
 &CONFIG`BRACKET_LEFT`CATEGORY #30=COSMETIC
@@ -30,9 +36,12 @@
 &CONFIG`LINE_COLOR #30=+indianred3
 &CONFIG`LINE_COLOR`CATEGORY #30=COSMETIC
 &CONFIG`LINE_COLOR`TYPE #30=COLOR
-&CONFIG`LINE_FILL #30=-
+&CONFIG`LINE_COLOR_alt #30=+lightskyblue2
+&CONFIG`LINE_COLOR_alt`CATEGORY #30=COSMETIC
+&CONFIG`LINE_COLOR_alt`TYPE #30=COLOR
+&CONFIG`LINE_FILL #30=45
 &CONFIG`LINE_FILL`CATEGORY #30=COSMETIC
-&CONFIG`LINE_FILL`TYPE #30=WORD
+&CONFIG`LINE_FILL`TYPE #30=CHAR
 &CONFIG`LINE_TEXT #30=+white
 &CONFIG`LINE_TEXT`CATEGORY #30=COSMETIC
 &CONFIG`LINE_TEXT`TYPE #30=COLOR
