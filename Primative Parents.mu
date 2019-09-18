@@ -28,7 +28,7 @@
 
 &build`type #35=PATH
 
-@exitformat #32=[iter([if(gte(words([mexits(%!,%#,HOME)]),1),Home)] [if(gte(words([mexits(%!,%#,BUILD)]),1),BUILD)] [if(gte(words([mexits(%!,%#,PATH)]),1),PATH)],[udefault(exits`##`[u(system`exits`##)],u(exits`##`default))])][line(banner)]
+@exitformat #32=[iter([if(gte(words([mexits(%!,%#,HOME)]),1),Home)] [if(gte(words([mexits(%!,%#,BUILD)]),1),BUILD)] [if(gte(words([mexits(%!,%#,PATH)]),1),PATH)],[udefault(exits`##`[u(system`exits`##)],u(exits`##`default))],%B,)][line(banner)]
 
 &exits`home`default #32=%B[ansi([gameconfig(columns)],Residences)]: [itemize([iter([sortby(sort`name,[mexits(%!,%#,HOME)])],[u(exits`fmt,##)],%B,|)],|,&)]%R
 &exits`build`default #32=%B[ansi([gameconfig(columns)],Buildings)]: [itemize([iter([sortby(sort`name,[mexits(%!,%#,Build)])],[u(exits`fmt,##)],%B,|)],|,&)]%R

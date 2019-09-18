@@ -65,7 +65,7 @@
 @@ Global Startup For Functions
 @startup #29=@dolist/inline [u(startup`makelist)]={@function %i0=[u(global,functions)],%i0};@dolist/inline lattr(%!/START`*)={@include/nobreak %!/##}
 
-&start`system_attributes #29=@dolist/inline SYS BESM ORG MATRIX={@attribute/access/retroactive %i0=mortal_dark WIZARD}
+&start`system_attributes #29=@dolist/inline SYS BESM ORG MATRIX CODEX SCENE={@attribute/access/retroactive %i0=mortal_dark WIZARD}
 &start`command_changes #29=@command/disable kill;@dolist/inline/nobreak @dig @open @link={@command/restrict %i0=!POWER^GUEST&!FLAG^GAGGED&(POWER^BUILDER|FLAG^WIZARD|FLAG^ROYALTY)};
 
 
@@ -84,6 +84,7 @@
 &validate`color #29=[valid(ansicodes,%0)]
 &validate`channel #29=[valid(channel,%0)]
 &validate`email #29=[cand([nor([gte([strlen(%0)],256)],[strmatch(%0,* *)])],[strmatch(%0,*@*.*)])]
+&validate`handle #29=[setq(hnd,[locate(#44,%0,Tia)])][if([isdbref(%q<hnd>)],0,1)]
 
 
 &inc`regs #29=@dolist [lnum(0,9)]=@pemit %#={Reg: ## = %##}
