@@ -26,7 +26,7 @@
 @@ newfile(system)                       - Generates an unique number for a file entry. (news/+help/+shelp/etc.)
 @@
 @parent #31=#29
-&startup`functions #31=staffbit isstaff safepassword caps cnum numth gtm ispowered su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename sdesc hideidle statustag mplayers mthings mexits
+&startup`functions #31=staffbit isstaff safepassword caps cnum numth gtm ispowered su hasrole roles line gameconfig myvalid wgrepi alert newfile itemize gamename sdesc hideidle statustag mplayers mthings mexits global
 
 
 &mexits #31=[setq(raw,lexits(%0))][setq(players,[iter(%q<raw>,if(hastype(##,exit),##))])][setq(seen,[iter(%q<players>,[if([isstaff(%1)],##,[if([hasflag(##,dark)],,##)])])])][setq(master,[setunion(%q<seen>,%q<seen>)])][setq(path,[filter(mexits`path,%q<master>)])][setq(build,[filter(mexits`build,%q<master>)])][setq(home,[filter(mexits`home,%q<master>)])][switch(strfirstof(%2,MASTER),MASTER,%q<master>,PATH,%q<path>,BUILD,%q<build>,HOME,%q<home>)]

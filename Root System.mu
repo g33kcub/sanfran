@@ -52,6 +52,7 @@
 @@-------------------------------Global Functions-------------------------------
 @@-------------------------------Local Functions--------------------------------
 &global #29=[if(strfirstof(%1,0),[before([get(#30/global`%0)],:)],[get(#30/global`%0)])]
+
 &system`name #29=[default(%0/matrix`name,SYSTEM)]
 &width #29=[width(%0,80)]
 &height #29=[height(%0,23)]
@@ -62,7 +63,11 @@
 &global`functions #30=#31:1568658319
 
 @@ Global Startup For Functions
-@startup #29=@dolist/inline [u(startup`makelist)]={@function %i0=[u(global,functions)],%i0};
+@startup #29=@dolist/inline [u(startup`makelist)]={@function %i0=[u(global,functions)],%i0};@dolist/inline lattr(%!/START`*)={@include/nobreak %!/##}
+
+&start`system_attributes #29=@dolist/inline SYS BESM ORG MATRIX={@attribute/access/retroactive %i0=mortal_dark WIZARD}
+&start`command_changes #29=@command/disable kill;@dolist/inline/nobreak @dig @open @link={@command/restrict %i0=!POWER^GUEST&!FLAG^GAGGED&(POWER^BUILDER|FLAG^WIZARD|FLAG^ROYALTY)};
+
 
 &startup`makelist #29=[setq(list,[iter([filter(fil`hasfn,[children(#29)])],[get(##/startup`functions)],%B,%B)])][setunion(%q<list>,%q<list>)]
 
@@ -122,7 +127,7 @@
 &MSGHEAD #29=[u(build`head,%0)]
 &MSGROOM #29=[u(build`head,%0)]
 
-&build`head #29=[ansi([gameconfig(LINE_COLOR)],[gameconfig(LINE_FILL)][chr([gameconfig(bracket_left)])])][ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])]%B[ansi([gameconfig(LINE_TEXT)],[ucstr(%0)])]%B[ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])][ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(bracket_right)])][gameconfig(LINE_FILL)])]
+&build`head #29=[ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(LINE_FILL)])][chr([gameconfig(bracket_left)])])][ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])]%B[ansi([gameconfig(LINE_TEXT)],[ucstr(%0)])]%B[ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])][ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(bracket_right)])][chr([gameconfig(LINE_FILL)])])]
 
 &get`pages #29=[setq(cnt,words(%0))][setq(div,[fdiv(%q<cnt>,%1)])][if(gte([after(%q<div>,.)],1),inc(before(%q<div>,.)),%q<div>)]
 &get`page`count #29=[extract(%0,[extract(u(get`page`list,%2,%3),%1,1)],15)]
