@@ -87,15 +87,18 @@
 &validate`handle #29=[setq(hnd,[locate(#44,%0,Tia)])][if([isdbref(%q<hnd>)],0,1)]
 
 
-&inc`regs #29=@dolist [lnum(0,9)]=@pemit %#={Reg: ## = %##}
+&inc`regs #29=@dolist [lnum(0,9)]=@pemit %#={@@ Reg: ## = %##}
+@vt #29=%!/inc`regs=%0,%1,%2,%3,%4,%5,%6,%7,%8,%9
+
 
 &inc`switches #29=@attach %!/INC`PARTIAL=%0,u(inc`switches`get,%#),|,switch,switch
 
 &inc`switches`get #29=[setunion([u(switches`player)],[u(inc`switches`staff,%#)],|,|)]
 
-&inc`switches`staff #29=[setq(swlist,[iter([u(inc`switches`list,%#)],[u(switches`##)],%B,|)])][setunion(%q<swlist>,%q<swlist>,|,|)]
+&inc`switches`staff #29=[setq(swlist,[iter(filter(fil`hasswitches,[u(inc`switches`list,%#)]),[u(switches`##)],%B,|)])][setunion(%q<swlist>,%q<swlist>,|,|)]
+&fil`hasswitches #29=[gte(words(u(switches`%0)),1)]
 
-&inc`switches`list #29=[setq(m1,[iter(lattr(#29/inc`switches`staff`*,,,,,1),[if([u(##,%0)],##)])])][iter(%q<m1>,[last(##,`)])]
+&inc`switches`list #29=[setq(m1,[iter(lattr(#29/inc`switches`staff`*),[if([u(##,%0)],##)])])][iter(%q<m1>,[last(##,`)])]
 
 &inc`switches`staff`operations #29=[hasrole(%0,Operations)]
 &inc`switches`staff`coder #29=[hasrole(%0,coder)]
@@ -130,6 +133,9 @@
 
 &build`head #29=[ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(LINE_FILL)])][chr([gameconfig(bracket_left)])])][ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])]%B[ansi([gameconfig(LINE_TEXT)],[ucstr(%0)])]%B[ansi([gameconfig(line_accent)],[chr([gameconfig(line_char)])])][ansi([gameconfig(LINE_COLOR)],[chr([gameconfig(bracket_right)])][chr([gameconfig(LINE_FILL)])])]
 
+
+@@ [u(get`pages,LIST,NUM PER PAGE)]
+@@ [u(get`page`count,LIST,PAGE,NUM PER PAGE)]
 &get`pages #29=[setq(cnt,words(%0))][setq(div,[fdiv(%q<cnt>,%1)])][if(gte([after(%q<div>,.)],1),inc(before(%q<div>,.)),%q<div>)]
-&get`page`count #29=[extract(%0,[extract(u(get`page`list,%2,%3),%1,1)],15)]
-&get`page`list #29=[iter([lnum(0,%0)],[inc(mul(##,%1))])]
+&get`page`count #29=[extract(%0,[extract(u(get`page`list,%2),%1,1)],15)]
+&get`page`list #29=[iter([lnum(0,100)],[inc(mul(##,%1))])]
