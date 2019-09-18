@@ -40,18 +40,44 @@
 @@
 @@  @account [<page>]                    - Displays your account.
 
-&cmd`account #43=$^@account(?\:/(\\S+)?)?(?\: +(.+?))?(?\:=(.*))?$:@attach %!/CMD`account`MAIN
+@@ Reg: 0 = @account/switch account=item
+@@ Reg: 1 = switch
+@@ Reg: 2 = account
+@@ Reg: 3 =
+@@ Reg: 4 =
+@@ Reg: 5 = item
+@@ Reg: 6 =
+@@ Reg: 7 =
+@@ Reg: 8 =
+@@ Reg: 9 =
+@@ @attach %!/inc`regs=%0,%1,%2,%3,%4,%5,%6,%7,%8,%9
+
+&cmd`account #43=$^@account(?\:/(\S+)?)?(?\: +(.+?))?(?\:/(.+?))?(?\:/(.+?))?(?\:=(.+?))?$:@attach %!/CMD`account`MAIN
 @set #43/cmd`account=regexp
-&cmd`account`main #43=@attach %!/inc`regs=%0,%1,%2,%3,%4,%5,%6,%7,%8,%9
+&cmd`account`main #43=@attach %!/inc`switches=%1;@attach %!/run`[strfirstof(%q<switch>,main)]=%2,%3,%4,%5,%6,%7,%8,%9
 
+&run`main #43=@check [isstaff(%#)]={@attach %!/run`main`player};@attach %!/run`main`player
 
-@attach %!/inc`switches=%1;@attach %!/run`account`[strfirstof(%q<switch>,main)]=%2,%3
+&run`main`player #43=th [setq(id,[getid(%#)])]@check [hasattr(%#,sys`account)]={@attach %!/inc`msg`error={You are not part of an account.}};@pemit %#=[line(banner,Account Summary - [name(%q<id>)])]%R%B[align(15 [lmath(sub,[u(width,%#)] 15 1 1 1)],[ansi(gameconfig(columns),Handle)]:,[hname(%q<id>)])]%R%B[align(15 [lmath(sub,[u(width,%#)] 15 1 1 1)],[ansi(gameconfig(columns),E-Mail)]:,[get(%q<id>/email)])]%R%B[align(15 [lmath(sub,[u(width,%#)] 15 1 1 1)],[ansi(gameconfig(columns),Password)]:,[if(hasattr(%q<id>,password),Set. %([decrypt([get(%q<id>/password)],%q<id>)]%),Not Set.)])]%R%B[align(15 [lmath(sub,[u(width,%#)] 15 1 1 1)],[ansi(gameconfig(columns),Account XP)]:,[cnum([xp(%q<id>,accountavail)])]/[cnum(xp(%q<id>,accounttotal))])]%R[line(header,Account Members)]%R%B[ansi(gameconfig(columns),[align(25 7 3 3 4 15 15,Character Name,Type,Pri,Alt,Mail,Race,Template,.)])]%R[iter([sort([get(%q<id>/members)],name)],[u(run`main`player`fmt,##)],%B,%R)]%R[line(header,Notes)]
 
-&cmd`actmng #43=$^@actmng(?\:/(\\S+)?)?(?\: +(.+?))?(?\:=(.*))?$:@attach %!/CMD`actmng`MAIN
-@set #43/cmd`actmng=regexp
-&cmd`actmng`main #43=@attach %!/inc`switches=%1;@attach %!/run`actmng`[strfirstof(%q<switch>,main)]=%2,%3
+&run`main`player`fmt #43=%B[align(25 7 -3 -3 -4 15 15,name(%0),[switch(1,[isstaff(%0)],Staff,[ispowered(%0)],Powered,[haspower(%0,Builder)],Builder,[hasflag(%0,NPC)],Player)],[u(get`priority,%q<id>,%0)],[if(u(get`isalt,%q<id>,%0),[ansi(010,Y)],[ansi(009,N)])],[extract(mail(%0),2,1)],[default(%0/besm`race,Unknown)],[default(%0/besm`template,Unknown)])]
 
+&get`priority #43=[last([wildgrepi(%0,PRIORITY`*,%1)],`)]
 
+&run`main`staff #43=@attach %!/inc`accountlist`db;th [setq(pg,strfirstof(%0,1))][setq(list,[sort(%q<actlist>,name)])][setq(pages,[u(get`pages,%q<list>,20)])][setq(sec,[u(get`page`count,%q<list>,%q<pg>,20)])];@attach %!/inc`partial=%q<pg>,[lnum(1,%q<pages>)],%B,pg,Page;@pemit %#=[line(banner,Account Master List)]%R%B[ansi(gameconfig(columns),[align(25 7 8 3 3 3 11 5,Account Name,Public?,Members,FZN,JLD,UNA,Staff Notes,Notes,.)])]%R[iter(%q<sec>,[u(run`main`staff`fmt,##)],%B,%R)]%R[line(banner,Page %q<pg> of %q<pages> -- @account <page>)]
+
+&run`main`staff`fmt #43=%B[align(25 -7 -8 -3 -3 -3 -11 -5,[hname(%0)],[if([default(%0/public,0)],[ansi(010,Y)],[ansi(009,N)])],[words([get(%0/members)])],[if([hasattr(%0,FROZEN)],[ansi(010,Y)],[ansi(009,N)])],[if([hasattr(%0,JAILED)],[ansi(010,Y)],[ansi(009,N)])],[if([hasattr(%0,UNAPP)],[ansi(010,Y)],[ansi(009,N)])],[words([lattr(%0/staffnote`*)])],[words(lattr(%0/note`*))])]
+
+&switches`player #43=NEW|REGISTER|PASSWORD|ALT|PRIORITY|XP|UNREGISTER|PUBLIC|NOTES|VIEWNOTE|SETNOTE
+&switches`staff #43=VIEW|SETSNOTE
+&switches`admin #43=APPNOTE|AWARDXP|NEWPASSWORD|WIPE|REMCHAR
+&switches`wizard #43=UNAPP|FREEZE|JAIL
+
+@@ 0 = Account Name, 3 = Password.
+&inc`accountlist #43=[setq(actlist,[iter([children([global(accpar)])],[name(##)],%B,|)])]
+&inc`accountlist`db #43=[setq(actlist,[children([global(accpar)])])]
+
+&run`new #43=@attach %!/inc`accountlist;@stop [gtm(%q<actlist>,%0,|)]={@attach %!/inc`msg`error={'%0' is already a valid account name. If you are supposed to be part of it. Please use [ansi(+white,@account/register %0=<password>)] to be added to it.}}
 
 @@  @account/new <email>=<password>      - Generates an account in the system. Using the provided email.
 @@  @account/register <email>=<password> - Registers a character with the account.
