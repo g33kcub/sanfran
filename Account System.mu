@@ -66,7 +66,7 @@
 
 &get`priority #43=[last([wildgrepi(%0,PRIORITY`*,%1)],`)]
 
-&run`main`staff #43=@attach %!/inc`accountlist`db;th [setq(pg,strfirstof(%0,1))][setq(list,[sort(%q<actlist>,name)])][setq(pages,[u(get`pages,%q<list>,20)])][setq(sec,[u(get`page`count,%q<list>,%q<pg>,20)])];@attach %!/inc`partial=%q<pg>,[lnum(1,%q<pages>)],%B,pg,Page;@pemit %#=[line(banner,Account Master List)]%R%B[ansi(gameconfig(columns),[align(25 7 8 3 3 3 11 5,Account Name,Public?,Members,FZN,JLD,UNA,Staff Notes,Notes,.)])]%R[iter(%q<sec>,[u(run`main`staff`fmt,##)],%B,%R)]%R[line(banner,Page %q<pg> of %q<pages> -- @account <page>)]
+&run`main`staff #43=@attach %!/inc`accountlist`db;th [setq(pg,strfirstof(%0,1))][setq(list,[sort(%q<actlist>,name)])][setq(pages,[u(get`pages,%q<list>,20)])][setq(sec,[u(get`page`count,%q<list>,%q<pg>,20)])];@attach %!/inc`partial=%q<pg>,[lnum(1,%q<pages>)],%B,pg,Page;@pemit %#=[line(banner,Account Master List)]%R%B[ansi(gameconfig(columns),[align(25 7 8 3 3 3 11 5,Account Name,Public?,Members,FZN,JLD,UNA,Staff Notes,Notes,.)])]%R[iter(%q<sec>,[u(run`main`staff`fmt,##)],%B,%R)]%R[line(banner,Page %q<pg> of %q<pages> -- @account <page> / @account/view <handle>)]
 
 &run`main`staff`fmt #43=%B[align(25 -7 -8 -3 -3 -3 -11 -5,[hname(%0)],[if([default(%0/public,0)],[ansi(010,Y)],[ansi(009,N)])],[words([get(%0/members)])],[if([hasattr(%0,FROZEN)],[ansi(010,Y)],[ansi(009,N)])],[if([hasattr(%0,JAILED)],[ansi(010,Y)],[ansi(009,N)])],[if([hasattr(%0,UNAPP)],[ansi(010,Y)],[ansi(009,N)])],[words([lattr(%0/staffnote`*)])],[words(lattr(%0/note`*))])]
 
